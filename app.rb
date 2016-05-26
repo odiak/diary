@@ -18,7 +18,16 @@ end
 
 class DiaryApp < Sinatra::Base
   get "/" do
-    "hello"
+    @posts = Post.order(:created_at.desc).all
+    slim :index
+  end
+
+  get %r{\A/(\d+)} do |id|
+    @post = Post.with_pk(id.to_i)
+
+    pass unless @post
+
+    slim :single
   end
 
   get "/edit" do
@@ -33,5 +42,9 @@ class DiaryApp < Sinatra::Base
     )
 
     redirect to("/")
+  end
+
+  not_found do
+    "Not Found"
   end
 end
