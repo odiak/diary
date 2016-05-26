@@ -7,6 +7,7 @@ gem "rake"
 gem "sqlite3"
 gem "unicorn"
 gem "slim"
+gem "redcarpet"
 
 group :development do
   gem "pry"

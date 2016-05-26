@@ -3,4 +3,4 @@
 
   p.date = @post.created_at
 
-  div.body = @post.body
+  div.body == markdown @post.body

@@ -1,5 +1,6 @@
 require "sinatra"
 require "sequel"
+require "redcarpet"
 
 require "logger"
 
@@ -17,6 +18,13 @@ class Post < Sequel::Model
 end
 
 class DiaryApp < Sinatra::Base
+
+  helpers do
+    def markdown(text)
+      Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(text || "")
+    end
+  end
+
   get "/" do
     @posts = Post.order(:created_at.desc).all
     slim :index

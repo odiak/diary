@@ -17,6 +17,7 @@ GEM
       rack (>= 1.0)
     raindrops (0.16.0)
     rake (11.1.2)
+    redcarpet (3.3.4)
     sequel (4.34.0)
     shotgun (0.9.1)
       rack (>= 1.0)
@@ -48,6 +49,7 @@ PLATFORMS
 DEPENDENCIES
   pry
   rake
+  redcarpet
   sequel
   shotgun
   sinatra
