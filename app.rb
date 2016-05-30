@@ -1,6 +1,7 @@
 require "sinatra"
 require "sequel"
 require "redcarpet"
+require "bcrypt"
 
 require "logger"
 
@@ -22,9 +23,31 @@ end
 
 class DiaryApp < Sinatra::Base
 
+  configure do
+    set :app_file, __FILE__
+    disable :show_exceptions
+    disable :session
+
+    pw = ENV["ENCRYPTED_PASSWORD"]
+    set :encrypted_password, pw
+  end
+
   helpers do
     def markdown(text)
       Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(text || "")
+    end
+
+    def require_password!
+      begin
+        pw = BCrypt::Password.new(settings.encrypted_password)
+        if pw != params["password"]
+          status 401
+          halt "Unauthorized"
+        end
+      rescue StandardError
+        status 401
+        halt "Unauthorized"
+      end
     end
   end
 
@@ -50,6 +73,8 @@ class DiaryApp < Sinatra::Base
   end
 
   post %r{\A/(\d+)/edit\z} do |id|
+    require_password!
+
     @post = Post.with_pk(id.to_i) or pass
 
     @post.title = params["title"]
@@ -66,6 +91,8 @@ class DiaryApp < Sinatra::Base
   end
 
   post "/new" do
+    require_password!
+
     @post = Post.new(
       title: params["title"],
       body: params["body"],

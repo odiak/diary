@@ -8,6 +8,7 @@ gem "sqlite3"
 gem "unicorn"
 gem "slim"
 gem "redcarpet"
+gem "bcrypt"
 
 group :development do
   gem "pry"

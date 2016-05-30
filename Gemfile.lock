@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     backports (3.6.8)
+    bcrypt (3.1.11)
     coderay (1.1.1)
     kgio (2.10.0)
     method_source (0.8.2)
@@ -47,6 +48,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt
   pry
   rake
   redcarpet
