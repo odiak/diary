@@ -1,7 +1,9 @@
-h2 edit post
+- if @post.new?
+  h2 new post
+- else
+  h2 edit post
 
-form action="/edit" method="post"
-  input type="hidden" name="id" value="#{@post.id}"
+form action="" method="post"
   input type="text" name="title" value="#{@post.title}"
   textarea name="body" = @post.body
   button type="submit" save

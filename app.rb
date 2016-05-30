@@ -33,28 +33,46 @@ class DiaryApp < Sinatra::Base
     slim :index
   end
 
-  get %r{\A/(\d+)} do |id|
+  get %r{\A/(\d+)\z} do |id|
     @post = Post.with_pk(id.to_i)
 
     pass unless @post
 
+    @title = @post.title
+
     slim :single
   end
 
-  get "/edit" do
-    @post = Post.new
+  get %r{\A/(\d+)/edit\z} do |id|
+    @post = Post.with_pk(id.to_i) or pass
+
     slim :edit_post
   end
 
-  post "/edit" do
-    @post = Post.new(
-      title: params["title"] || "",
-      body: params["body"] || "",
-    )
+  post %r{\A/(\d+)/edit\z} do |id|
+    @post = Post.with_pk(id.to_i) or pass
 
+    @post.title = params["title"]
+    @post.body = params["body"]
     @post.save
 
-    redirect to("/")
+    redirect to("/#{@post.id}")
+  end
+
+  get "/new" do
+    @post = Post.new
+
+    slim :edit_post
+  end
+
+  post "/new" do
+    @post = Post.new(
+      title: params["title"],
+      body: params["body"],
+    )
+    @post.save
+
+    redirect to("/#{@post.id}")
   end
 
   not_found do
