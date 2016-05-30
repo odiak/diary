@@ -102,6 +102,22 @@ class DiaryApp < Sinatra::Base
     redirect to("/#{@post.id}")
   end
 
+  get %r{\A/(\d+)/delete\z} do |id|
+    @post = Post.with_pk(id.to_i) or pass
+
+    slim :delete_post
+  end
+
+  post %r{\A/(\d+)/delete\z} do |id|
+    require_password!
+
+    @post = Post.with_pk(id.to_i) or pass
+
+    @post.destroy
+
+    redirect to("/")
+  end
+
   not_found do
     "Not Found"
   end
