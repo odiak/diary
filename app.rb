@@ -49,6 +49,8 @@ class DiaryApp < Sinatra::Base
       body: params["body"] || "",
     )
 
+    @post.save
+
     redirect to("/")
   end
 
