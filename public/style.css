@@ -37,3 +37,8 @@ a:visited,
 a:hover {
   color: #23c;
 }
+
+.copyright {
+  margin-top: 40px;
+  color: #555;
+}
