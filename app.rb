@@ -27,6 +27,7 @@ class DiaryApp < Sinatra::Base
     set :app_file, __FILE__
     disable :show_exceptions
     disable :session
+    enable :logging
 
     pw = ENV["ENCRYPTED_PASSWORD"]
     set :encrypted_password, pw
