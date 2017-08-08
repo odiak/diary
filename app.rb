@@ -15,7 +15,7 @@ Sequel::Model.plugin :timestamps, update_on_create: true
 Sequel.database_timezone = :utc
 Sequel.application_timezone = :local
 
-DB = Sequel.connect("sqlite://db/#{RACK_ENV}.sqlite3")
+DB = Sequel.connect(ENV["DATABASE_URL"] || "sqlite://db/#{RACK_ENV}.sqlite3")
 DB.loggers << Logger.new($stdout)
 
 class Post < Sequel::Model
