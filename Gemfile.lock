@@ -7,6 +7,7 @@ GEM
     kgio (2.10.0)
     method_source (0.8.2)
     multi_json (1.12.1)
+    pg (0.21.0)
     pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -49,6 +50,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt
+  pg
   pry
   rake
   redcarpet
